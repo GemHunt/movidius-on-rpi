@@ -1,12 +1,11 @@
 # movidius-on-rpi
 **I documented this install afterwards, it’s not great, but it’s a great start for another install:**
 * The best source of information is the forum: https://ncsforum.movidius.com/
-
-* I downloaded 2017-09-07 Raspbian Stretch and wrote a 32GB card with Win32DiskImager.
+* I downloaded 2017-09-07 Raspbian Stretch and wrote a 32GB card with Win32DiskImager
 * Turned on the RPi camera and SSH
 * Change the local to “Chicago”
 * Changed the keyboard to US  (Must!) 
-* Change the password
+* Change the root password
 * mkdir workspace
   (Required to because the example programs are hardcoded to use this dir) 
 * cd workspace
@@ -38,11 +37,14 @@
 * I tried installing gstreamer with no effect 
 * I tried 3 times to run “make opencv”:(1-2 hours): https://github.com/movidius/ncappzoo/tree/master/apps/stream_ty_gn_threaded
 
-**Next Steps for me:**
+**Next Steps for me on this build:**
 * The RPi is just a better camera than USB because it uses the GPU. This looks easy to get up and running with the NCS. I might write this and send movidius/ncappzoo a pull request. 
+* Try a more complex pipeline with OpenCV functions and NCS inference
+* Try a USB webcam through other methods
+* Find out if Python 2.7 or 3.4 or both are needed? 
+
 
 **Next Rebuild for me:**
 * Document everything! 
 * Should have used 8GB SD Card and or resized the SD Card image: http://www.aoakley.com/articles/2015-10-09-resizing-sd-images.php
-* Wait? I am guessing Movidius will make this better and hopefully better RPi Examples. All the TensorFlow API stuff will not work in the examples because TensorFlow can’t be installed. Really there is no need to be running API type stuff on the RPi. 
-
+* Wait? I am hoping Movidius will seperate ARM/RPi/inferance-only examples this better and hopefully write better RPi Examples. All the TensorFlow API stuff will not work in the examples because TensorFlow can’t be installed. Is there a need to be running API type stuff(compliling the network/profiling) on the RPi?
