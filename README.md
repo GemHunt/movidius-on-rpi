@@ -1,5 +1,7 @@
 # movidius-on-rpi
-**I documented this install afterwards, it’s not great, but it’s a great start for another install:**
+Build Directions for a microSD card image for a Raspberry Pi with a Movidius Nuerual Compute Stick(NCS). 
+
+**I documented this install afterwards, it’s not great, but a starting place:**
 * The best source of information is the forum: https://ncsforum.movidius.com/
 * I downloaded 2017-09-07 Raspbian Stretch and wrote a 32GB card with Win32DiskImager
 * Turned on the RPi camera and SSH
@@ -29,6 +31,8 @@
 * apps/hello_ncs_py
 * apps/birds
 * apps/MultiStick_GoogLeNet
+
+**I am guessing it took 6-8 hours to get to this point.**
 
 **I was unsuccessful at getting the stream examples up with a USB webcam:**
 * /apps/stream_infer
