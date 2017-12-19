@@ -6,7 +6,6 @@ As of 12/19/17 Movidius is saying you can have the NCS or movidius, but not both
 * Except:
 * I made sure I used 3/2/2017 release (Download dated 3/3/2017) 
 * I used Win32DiskImager to make it(not NOOBs, because Noobs updated it.) 
-* I downloaded 2017-09-07 Raspbian Stretch and wrote a 32GB card with Win32DiskImager
 * Turned on the RPi camera and SSH
 * Change the local to “Chicago”
 * Changed the keyboard to US  (Must!) 
