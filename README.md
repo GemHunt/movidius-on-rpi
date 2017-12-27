@@ -30,24 +30,23 @@ https://www.meetup.com/Chicago-Area-Embedded-Deep-Learning
 * Infers(runs the computational graph) a Tensorflow or caffe model.
 
 **What are some NCS+RPI pros and cons?**
-* Pros:
+* **Pros:**
 * Power usage(2 Watts NCS+RPI)
 * Size and wieght 
-* It's the first ASIC out so there is nothing to compare it to at this point. 
+* It's the first ASIC out so there is nothing to compare it to at this point
 * It's true edge device (no internet needed & appliance like) 
 * RPI is very popular
 * Cost is projected to go much lower
-* Cons:
+* **Cons:**
 * First one out: so limited support & could have much more power
-* You can't access the Myraid 2 VPU with all the computer vision functionality. 
+* You can't access the Myraid 2 VPU with all the computer vision functionality
 * Cost is still high for what your getting
-* If power and size are not an issue a cheap PC & GPU is more cost effective. 
+* If power and size are not an issue a cheap PC & GPU is more cost effective
 
 **How does the NCS compare to the Google AIY Vision Kit?**
 * https://aiyprojects.withgoogle.com/vision#list-of-materials
-* Not sure yet, I ordered three of them. 
-* The Google AIY Vision kit is a hat/bonnet that sits on top of a RPi Zero. 
-
+* Not sure yet, I ordered three of them
+* The Google AIY Vision kit is a hat/bonnet that sits on top of a RPi Zero
 
 **More FAQ's to Come
 
