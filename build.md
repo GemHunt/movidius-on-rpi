@@ -8,10 +8,10 @@ Build Directions for a microSD card image for a Raspberry Pi with a Movidius Nue
 * Change the local to “Chicago”
 * Changed the keyboard to US  (Must!) 
 * Change the root password
-* mkdir workspace
-  (Required to because the example programs are hardcoded to use this dir) 
+* mkdir workspace (Required to because the example programs are hardcoded to use this dir) 
 * cd workspace
 * With the movidius repo installs when something did not work I tried again using sudo
+
 
 **I followed 12/6/2017 Release:**
 * git clone https://github.com/movidius/ncsdk
@@ -27,7 +27,7 @@ Build Directions for a microSD card image for a Raspberry Pi with a Movidius Nue
 * Sudo pip install scikit-image 
 * (Took 3-5 hours) (There has to be a better way!) 
 
-**These apps worked great:**
+**These apps work great:**
 * apps/hello_ncs_py
 * apps/birds
 * apps/MultiStick_GoogLeNet
@@ -40,6 +40,11 @@ Build Directions for a microSD card image for a Raspberry Pi with a Movidius Nue
 * /apps/stream_ty_gn_threaded
 * I tried installing gstreamer with no effect 
 * I tried 3 times to run “make opencv”:(1-2 hours): https://github.com/movidius/ncappzoo/tree/master/apps/stream_ty_gn_threaded
+
+**Possible Tips?**
+* The examples are in Python3, so you can get errors if you type python and not python3
+* Check out Adrian Rosebrock's says about swap space in a TensorFlow install: https://www.pyimagesearch.com/2017/12/18/keras-deep-learning-raspberry-pi
+
 
 **Next Steps for me on this build:**
 * The RPi is just a better camera than USB because it uses the GPU. This looks easy to get up and running with the NCS. I might write this and send movidius/ncappzoo a pull request. 
