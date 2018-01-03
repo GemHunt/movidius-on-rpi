@@ -9,7 +9,7 @@ Build Directions for a microSD card image for a Raspberry Pi with a Movidius Nue
 * Change the local to “Chicago”
 * Changed the keyboard to US  (Must!) 
 * Change the root password
-* mkdir workspace (Required to because the example programs are hardcoded to use this dir) 
+* mkdir workspace (Required to because some of the example programs are hardcoded to use this dir) 
 * cd workspace
 
 **I followed 12/6/2017 Release:**
