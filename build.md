@@ -3,6 +3,7 @@ Build Directions for a microSD card image for a Raspberry Pi with a Movidius Nue
 
 **I documented this install afterwards, it’s not great, but a starting place:**
 * The best source of information is the forum: https://ncsforum.movidius.com/
+* This is an excellent forum comment: https://ncsforum.movidius.com/discussion/comment/1393#Comment_1393
 * I downloaded 2017-09-07 Raspbian Stretch and wrote a 32GB card with Win32DiskImager
 * Turned on the RPi camera and SSH
 * Change the local to “Chicago”
@@ -10,8 +11,6 @@ Build Directions for a microSD card image for a Raspberry Pi with a Movidius Nue
 * Change the root password
 * mkdir workspace (Required to because the example programs are hardcoded to use this dir) 
 * cd workspace
-* With the movidius repo installs when something did not work I tried again using sudo
-
 
 **I followed 12/6/2017 Release:**
 * git clone https://github.com/movidius/ncsdk
@@ -41,12 +40,14 @@ Build Directions for a microSD card image for a Raspberry Pi with a Movidius Nue
 * I tried installing gstreamer with no effect 
 * I tried 3 times to run “make opencv”:(1-2 hours): https://github.com/movidius/ncappzoo/tree/master/apps/stream_ty_gn_threaded
 
-**Possible Tips?**
-* The examples are in Python3, so you can get errors if you type python and not python3
+**Questionable Tips:**
+* "Questionable" as I am not sure if these are a good ideas or not...
+* The examples are in Python3, so you will get errors sometimes if you type python and not python3
 * Check out Adrian Rosebrock's says about swap space in a TensorFlow install: https://www.pyimagesearch.com/2017/12/18/keras-deep-learning-raspberry-pi
+* With the movidius repo installs when something did not work I tried again using sudo
 
 
-**Next Steps for me on this build:**
+**Next steps for me on this build:**
 * The RPi is just a better camera than USB because it uses the GPU. This looks easy to get up and running with the NCS. I might write this and send movidius/ncappzoo a pull request. 
 * Try a more complex pipeline with OpenCV functions and NCS inference
 * Try a USB webcam through other methods
