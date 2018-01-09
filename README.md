@@ -46,6 +46,8 @@ https://www.meetup.com/Chicago-Area-Embedded-Deep-Learning
 * https://aiyprojects.withgoogle.com/vision#list-of-materials
 * Not sure yet, I ordered three of them
 * The Google AIY Vision kit is a hat/bonnet that sits on top of a RPi Zero
+* The Vision Kit is a hobby/learning product only, becuase you can't buy RPI Zeros in quanity and need to solder the headers on(correctly) to use it. 
+
 
 **More FAQ's to Come
 
