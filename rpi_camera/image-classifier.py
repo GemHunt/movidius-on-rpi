@@ -1,86 +1,82 @@
 #!/usr/bin/python3
 
-# ****************************************************************************
-# Copyright(c) 2017 Intel Corporation. 
-# License: MIT See LICENSE file in root directory.
-# ****************************************************************************
-
-# How to classify images using DNNs on Intel Neural Compute Stick (NCS)
-
 import mvnc.mvncapi as mvnc
-import skimage
-from skimage import io, transform
 import numpy
 import os
 import sys
-
-# User modifiable input parameters
+import socket                   # Import socket module
+import time
+import cv2
+import cPickle as pickle
+import skimage
+from skimage import io, transform
 NCAPPZOO_PATH           = os.path.expanduser( '~/workspace/ncappzoo' )
 GRAPH_PATH              = NCAPPZOO_PATH + '/caffe/GenderNet/graph' 
-IMAGE_PATH              = NCAPPZOO_PATH + '/data/images/cat.jpg'
 LABELS_FILE_PATH        = NCAPPZOO_PATH + '/data/ilsvrc12/synset_words.txt'
 IMAGE_MEAN              = [ 104.00698793, 116.66876762, 122.67891434]
 IMAGE_STDDEV            = 1
 IMAGE_DIM               = ( 224, 224 )
 
-# ---- Step 1: Open the enumerated device and get a handle to it -------------
-
-# Look for enumerated NCS device(s); quit program if none found.
 devices = mvnc.EnumerateDevices()
 if len( devices ) == 0:
-	print( 'No devices found' )
-	quit()
-
-# Get a handle to the first enumerated device and open it
+    print( 'No devices found' )
+    quit()
 device = mvnc.Device( devices[0] )
 device.OpenDevice()
-
-# ---- Step 2: Load a graph file onto the NCS device -------------------------
-
-# Read the graph file into a buffer
 with open( GRAPH_PATH, mode='rb' ) as f:
-	blob = f.read()
-
-# Load the graph buffer into the NCS
+    blob = f.read()
 graph = device.AllocateGraph( blob )
 
 # ---- Step 3: Offload image onto the NCS to run inference -------------------
 
-# Read & resize image [Image size is defined during training]
-img = print_img = skimage.io.imread( IMAGE_PATH )
-img = skimage.transform.resize( img, IMAGE_DIM, preserve_range=True )
+while True:
+    s = socket.socket()  # Create a socket object
+    # host = socket.gethostname()     # Get local machine name
+    host = 'rpi1'
+    port = 33333
+    s.connect((host, port))
+    s.send("Hello server!")
+    data = []
 
-# Convert RGB to BGR [skimage reads image in RGB, but Caffe uses BGR]
-img = img[:, :, ::-1]
+    while True:
+        buffer = s.recv(4096)
+        data.append(buffer)
+        if not buffer:
+            break
+    joined_data = b"".join(data)  # Make the final message
 
-# Mean subtraction & scaling [A common technique used to center the data]
-img = img.astype( numpy.float32 )
-img = ( img - IMAGE_MEAN ) * IMAGE_STDDEV
+    s.close()
+    frame = pickle.loads(str(joined_data))
+    cv2.imshow("Frame", frame)
+    key = cv2.waitKey(1) & 0xFF
 
-# Load the image as a half-precision floating point array
-graph.LoadTensor( img.astype( numpy.float16 ), 'user object' )
+    img = skimage.transform.resize( frame, IMAGE_DIM, preserve_range=True )
 
-# ---- Step 4: Read & print inference results from the NCS -------------------
+    # Convert RGB to BGR [skimage reads image in RGB, but Caffe uses BGR]
+    img = img[:, :, ::-1]
 
-# Get the results from NCS
-output, userobj = graph.GetResult()
+    # Mean subtraction & scaling [A common technique used to center the data]
+    img = img.astype( numpy.float32 )
+    img = ( img - IMAGE_MEAN ) * IMAGE_STDDEV
 
-# Print the results
-print('\n------- predictions --------')
+    # Load the image as a half-precision floating point array
+    graph.LoadTensor( img.astype( numpy.float16 ), 'user object' )
 
-labels = numpy.loadtxt( LABELS_FILE_PATH, str, delimiter = '\t' )
+    # ---- Step 4: Read & print inference results from the NCS -------------------
 
-order = output.argsort()[::-1][:2]
+    # Get the results from NCS
+    output, userobj = graph.GetResult()
 
-for i in range( 0, 2):
-	print ('prediction ' + str(i) + ' is ' + labels[order[i]])
+    # Print the results
+    print('\n------- predictions --------')
 
-# If a display is available, show the image on which inference was performed
-if 'DISPLAY' in os.environ:
-    skimage.io.imshow( IMAGE_PATH )
-    skimage.io.show( )
+    labels = numpy.loadtxt( LABELS_FILE_PATH, str, delimiter = '\t' )
 
-# ---- Step 5: Unload the graph and close the device -------------------------
+    order = output.argsort()[::-1][:2]
+
+    for i in range( 0, 2):
+        print ('prediction ' + str(i) + ' is ' + labels[order[i]])
+
 
 graph.DeallocateGraph()
 device.CloseDevice()
