@@ -31,6 +31,7 @@ graph = device.AllocateGraph( blob )
 # ---- Step 3: Offload image onto the NCS to run inference -------------------
 
 while True:
+    start_time = time.time()
     s = socket.socket()  # Create a socket object
     # host = socket.gethostname()     # Get local machine name
     host = 'rpi_2'
@@ -48,7 +49,7 @@ while True:
 
     s.close()
     img = pickle.loads(joined_data,encoding='bytes')
-
+    print('In %s seconds' % (time.time() - start_time,))
     cv2.imshow("img", img)
     key = cv2.waitKey(1) & 0xFF
 
@@ -60,7 +61,8 @@ while True:
     # Mean subtraction & scaling [A common technique used to center the data]
     img = img.astype( numpy.float32 )
     img = ( img - IMAGE_MEAN ) * IMAGE_STDDEV
-
+    print('In %s seconds' % (time.time() - start_time,))
+    
     #Load the image as a half-precision floating point array
     graph.LoadTensor( img.astype( numpy.float16 ), 'user object' )
 
@@ -68,6 +70,7 @@ while True:
 
     # Get the results from NCS
     output, userobj = graph.GetResult()
+    print('In %s seconds' % (time.time() - start_time,))
 
     # Print the results
     print('\n------- predictions --------')
@@ -79,6 +82,7 @@ while True:
     for i in range( 0, 2):
         print ('prediction ' + str(i) + ' is ' + labels[order[i]])
 
+    print('In %s seconds' % (time.time() - start_time,))
 
 graph.DeallocateGraph()
 device.CloseDevice()

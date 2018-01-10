@@ -12,7 +12,7 @@ s = socket.socket()             # Create a socket object
 host = ''
 s.bind((host, port))            # Bind to the port
 s.listen(5)                     # Now wait for client connection.
-vs = PiVideoStream(resolution=(160, 120), framerate=90).start()
+vs = PiVideoStream(resolution=(320,240), framerate=90).start()
 time.sleep(2.0)
 
 while True:
