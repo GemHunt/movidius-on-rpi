@@ -11,7 +11,7 @@ import pickle
 import skimage
 from skimage import io, transform
 NCAPPZOO_PATH           = os.path.expanduser( '~/workspace/ncappzoo' )
-GRAPH_PATH              = NCAPPZOO_PATH + '/caffe/GenderNet/graph'
+GRAPH_PATH              = NCAPPZOO_PATH + '/caffe/GoogLeNet/graph'
 IMAGE_PATH              = NCAPPZOO_PATH + '/data/images/cat.jpg'
 LABELS_FILE_PATH        = NCAPPZOO_PATH + '/data/ilsvrc12/synset_words.txt'
 IMAGE_MEAN              = [ 104.00698793, 116.66876762, 122.67891434]
@@ -36,7 +36,7 @@ while True:
     host = 'rpi_2'
     port = 33333
     s.connect((host, port))
-    s.send("Hello server!")
+    #s.send("Hello server!")
     data = []
 
     while True:
@@ -47,35 +47,21 @@ while True:
     joined_data = b"".join(data)  # Make the final message
 
     s.close()
-    img = pickle.loads(str(joined_data))
+    img = pickle.loads(joined_data,encoding='bytes')
 
-    #img = skimage.transform.resize( img, IMAGE_DIM, preserve_range=True )
+    cv2.imshow("img", img)
+    key = cv2.waitKey(1) & 0xFF
+
+    img = skimage.transform.resize( img, IMAGE_DIM, preserve_range=True )
 
     # Convert RGB to BGR [skimage reads image in RGB, but Caffe uses BGR]
     #img = img[:, :, ::-1]
 
     # Mean subtraction & scaling [A common technique used to center the data]
-    #img = img.astype( numpy.float32 )
-    #img = ( img - IMAGE_MEAN ) * IMAGE_STDDEV
+    img = img.astype( numpy.float32 )
+    img = ( img - IMAGE_MEAN ) * IMAGE_STDDEV
 
-
-    # Read & resize image [Image size is defined during training]
-    img = print_img = skimage.io.imread(IMAGE_PATH)
-    img = skimage.transform.resize(img, IMAGE_DIM, preserve_range=True)
-
-    # Convert RGB to BGR [skimage reads image in RGB, but Caffe uses BGR]
-    img = img[:, :, ::-1]
-
-    # Mean subtraction & scaling [A common technique used to center the data]
-    img = img.astype(numpy.float32)
-    img = (img - IMAGE_MEAN) * IMAGE_STDDEV
-
-
-    cv2.imshow("img", img)
-    key = cv2.waitKey(1) & 0xFF
-
-
-    # Load the image as a half-precision floating point array
+    #Load the image as a half-precision floating point array
     graph.LoadTensor( img.astype( numpy.float16 ), 'user object' )
 
     # ---- Step 4: Read & print inference results from the NCS -------------------
