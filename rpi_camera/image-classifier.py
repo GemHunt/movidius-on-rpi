@@ -7,11 +7,12 @@ import sys
 import socket                   # Import socket module
 import time
 import cv2
-import cPickle as pickle
+import pickle
 import skimage
 from skimage import io, transform
 NCAPPZOO_PATH           = os.path.expanduser( '~/workspace/ncappzoo' )
-GRAPH_PATH              = NCAPPZOO_PATH + '/caffe/GenderNet/graph' 
+GRAPH_PATH              = NCAPPZOO_PATH + '/caffe/GenderNet/graph'
+IMAGE_PATH              = NCAPPZOO_PATH + '/data/images/cat.jpg'
 LABELS_FILE_PATH        = NCAPPZOO_PATH + '/data/ilsvrc12/synset_words.txt'
 IMAGE_MEAN              = [ 104.00698793, 116.66876762, 122.67891434]
 IMAGE_STDDEV            = 1
@@ -32,7 +33,7 @@ graph = device.AllocateGraph( blob )
 while True:
     s = socket.socket()  # Create a socket object
     # host = socket.gethostname()     # Get local machine name
-    host = 'rpi1'
+    host = 'rpi_2'
     port = 33333
     s.connect((host, port))
     s.send("Hello server!")
@@ -46,18 +47,33 @@ while True:
     joined_data = b"".join(data)  # Make the final message
 
     s.close()
-    frame = pickle.loads(str(joined_data))
-    cv2.imshow("Frame", frame)
-    key = cv2.waitKey(1) & 0xFF
+    img = pickle.loads(str(joined_data))
 
-    img = skimage.transform.resize( frame, IMAGE_DIM, preserve_range=True )
+    #img = skimage.transform.resize( img, IMAGE_DIM, preserve_range=True )
+
+    # Convert RGB to BGR [skimage reads image in RGB, but Caffe uses BGR]
+    #img = img[:, :, ::-1]
+
+    # Mean subtraction & scaling [A common technique used to center the data]
+    #img = img.astype( numpy.float32 )
+    #img = ( img - IMAGE_MEAN ) * IMAGE_STDDEV
+
+
+    # Read & resize image [Image size is defined during training]
+    img = print_img = skimage.io.imread(IMAGE_PATH)
+    img = skimage.transform.resize(img, IMAGE_DIM, preserve_range=True)
 
     # Convert RGB to BGR [skimage reads image in RGB, but Caffe uses BGR]
     img = img[:, :, ::-1]
 
     # Mean subtraction & scaling [A common technique used to center the data]
-    img = img.astype( numpy.float32 )
-    img = ( img - IMAGE_MEAN ) * IMAGE_STDDEV
+    img = img.astype(numpy.float32)
+    img = (img - IMAGE_MEAN) * IMAGE_STDDEV
+
+
+    cv2.imshow("img", img)
+    key = cv2.waitKey(1) & 0xFF
+
 
     # Load the image as a half-precision floating point array
     graph.LoadTensor( img.astype( numpy.float16 ), 'user object' )
