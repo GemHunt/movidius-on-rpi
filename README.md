@@ -22,7 +22,10 @@ https://www.meetup.com/Chicago-Area-Embedded-Deep-Learning
 * https://github.com/movidius/ncsdk
 
 **What hardwhere do I need to get into this?**
-* Really you need a Ubuntu 14.04 PC, RPi, and NCS.
+* Really you need a Ubuntu 16.04 PC, RPi, and NCS.
+
+**Does it have to be Ubuntu 16.04 PC?**
+* Only if you value your time! Preferably it should be a modern PC with a GPU running Ubuntu directly(not virtual). This has been a major stumpling block both in the meetup group and on the movidous forum. 
 
 **What does it do?**
 * Infers(runs the computational graph) a Tensorflow or caffe model.
