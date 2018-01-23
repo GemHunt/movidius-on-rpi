@@ -40,9 +40,14 @@ Build Directions for a microSD card image for a Raspberry Pi with a Movidius Nue
 * I tried installing gstreamer with no effect 
 * I tried 3 times to run “make opencv”:(1-2 hours): https://github.com/movidius/ncappzoo/tree/master/apps/stream_ty_gn_threaded
 
+**Tips:**
+* The examples are in Python3, so you will get errors sometimes if you type python and not python3
+* Check if you online. If you lose your internet connection the during install sometimes it's not easy to to understand this was the issue. 
+
+
 **Questionable Tips:**
 * "Questionable" as I am not sure if these are a good ideas or not...
-* The examples are in Python3, so you will get errors sometimes if you type python and not python3
+
 * Check out Adrian Rosebrock's says about swap space in a TensorFlow install: https://www.pyimagesearch.com/2017/12/18/keras-deep-learning-raspberry-pi
 * With the movidius repo installs when something did not work I tried again using sudo
 
