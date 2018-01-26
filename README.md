@@ -6,9 +6,9 @@ This repo about using Movidius neural compute sticks(NCS) on the Raspberry Pi.
 It is the ongoing result of a series Meetups I have been hosting for Chicago Area Embedded Deep Learning:
 https://www.meetup.com/Chicago-Area-Embedded-Deep-Learning
 
-
 **As of 12/19/17 Movidius is saying you can have the NCS or TensorFlow, but not both:**
-* [Build directions for a microSD card image for a Raspberry Pi with a Movidius Neural Compute Stick(NCS).](build.md)
+* [Build directions for a microSD card image for a Raspberry Pi with a Movidius Neural Compute Stick(NCS)](build.md)
+* [Link to 6GB SD Card Image](http://www.gemhunt.com/ncs.img.gz)  - RPI with NCS root password: 45tom*
 * [Build directions for a microSD card image with Raspberry Pi with Tensorflow](tensorflow_build.md)
 
 **Slides from a very short demo I gave:**
@@ -20,6 +20,9 @@ https://www.meetup.com/Chicago-Area-Embedded-Deep-Learning
 * https://ncsforum.movidius.com/
 * https://github.com/movidius/ncappzoo
 * https://github.com/movidius/ncsdk
+
+**How do I use the Pi Camera:**
+* https://github.com/GemHunt/movidius-on-rpi/tree/master/rpi_camera
 
 **What hardwhere do I need to get into this?**
 * Really you need a Ubuntu 16.04 PC, RPi, and NCS.
