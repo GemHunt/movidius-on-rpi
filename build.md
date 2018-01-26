@@ -45,7 +45,8 @@ Build Directions for a microSD card image for a Raspberry Pi with a Movidius Nue
 **Tips:**
 * The examples are in Python3, so you will get errors sometimes if you type python and not python3
 * Check if you online. If you lose your internet connection the during install sometimes it's not easy to to understand this was the issue. 
-
+* Next time I will use a 16GB card as it's about 12GB if you clean up. See:
+* http://www.aoakley.com/articles/2015-10-09-resizing-sd-images.php
 
 **Questionable Tips:**
 * "Questionable" as I am not sure if these are a good ideas or not...
