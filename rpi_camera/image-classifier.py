@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+#Notice this is in Python3 and the server is in Python2
 
 import mvnc.mvncapi as mvnc
 import numpy
@@ -12,7 +13,7 @@ import skimage
 from skimage import io, transform
 NCAPPZOO_PATH           = os.path.expanduser( '~/workspace/ncappzoo' )
 GRAPH_PATH              = NCAPPZOO_PATH + '/caffe/GoogLeNet/graph'
-IMAGE_PATH              = NCAPPZOO_PATH + '/data/images/cat.jpg'
+#IMAGE_PATH              = NCAPPZOO_PATH + '/data/images/cat.jpg'
 LABELS_FILE_PATH        = NCAPPZOO_PATH + '/data/ilsvrc12/synset_words.txt'
 IMAGE_MEAN              = [ 104.00698793, 116.66876762, 122.67891434]
 IMAGE_STDDEV            = 1
@@ -37,7 +38,6 @@ while True:
     #host = 'rpi_2'
     port = 33333
     s.connect((host, port))
-    #s.send("Hello server!")
     data = []
 
     while True:
@@ -54,9 +54,6 @@ while True:
     key = cv2.waitKey(1) & 0xFF
 
     img = skimage.transform.resize( img, IMAGE_DIM, preserve_range=True )
-
-    # Convert RGB to BGR [skimage reads image in RGB, but Caffe uses BGR]
-    #img = img[:, :, ::-1]
 
     # Mean subtraction & scaling [A common technique used to center the data]
     img = img.astype( numpy.float32 )
@@ -86,6 +83,3 @@ while True:
 
 graph.DeallocateGraph()
 device.CloseDevice()
-
-# ==== End of file ===========================================================
-
