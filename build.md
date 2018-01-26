@@ -1,6 +1,8 @@
 # movidius-on-rpi
 Build Directions for a microSD card image for a Raspberry Pi with a Movidius Nuerual Compute Stick(NCS). 
 
+* [Download Link to 6GB SD Card Image](http://www.gemhunt.com/ncs.img.gz)  - RPI with NCS root password: 45tom*
+
 **I documented this install afterwards, it’s not great, but a starting place:**
 * The best source of information is the forum: https://ncsforum.movidius.com/
 * This is an excellent forum comment: https://ncsforum.movidius.com/discussion/comment/1393#Comment_1393
