@@ -33,8 +33,8 @@ graph = device.AllocateGraph( blob )
 while True:
     start_time = time.time()
     s = socket.socket()  # Create a socket object
-    # host = socket.gethostname()     # Get local machine name
-    host = 'rpi_2'
+    host = socket.gethostname()     # Get local machine name
+    #host = 'rpi_2'
     port = 33333
     s.connect((host, port))
     #s.send("Hello server!")
